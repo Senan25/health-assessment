@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Health Assessment</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>BMI Health Assessment</h2>
+        <form id="bmi-form" action="/assess_health" method="post">
+            <div class="input-box">
+                <input type="float" name="weight" placeholder="Enter weight (kg)" required>
+                <input type="float" name="height" placeholder="Enter height (m)" required>
+            </div>
+            <button type="submit" class="button">Check BMI</button>
+        </form>
+        <div id="result" class="result">
+            <!-- Gauge image will be displayed here -->
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById("bmi-form").onsubmit = async function(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = {
+                weight: parseFloat(formData.get("weight")),
+                height: parseFloat(formData.get("height")),
+            };
+            
+            const response = await fetch("/assess_health", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+            
+            const imgBlob = await response.blob();
+            const imgUrl = URL.createObjectURL(imgBlob);
+            document.getElementById("result").innerHTML = `<img src="${imgUrl}" alt="BMI Gauge">`;
+        };
+    </script>
+</body>
+</html>
