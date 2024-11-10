@@ -24,6 +24,9 @@ jobs:
         needs: build
 
         steps: 
+            - name: Checking image
+              run: |
+                docker images
             - name: Deploying
               run: |
                 docker push sanan25/healt-assessment-image:latest
