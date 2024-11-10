@@ -17,7 +17,8 @@ jobs:
 
             - name: Building and Pushing image to DockerHub
               run: |
-                docker build -t sanan25/healt-assessment-image:latest .
+                docker build -t sanan25/health-assessment-image:latest .
+                
 
     deploy:
         runs-on: ubuntu-latest
@@ -29,6 +30,6 @@ jobs:
                 docker images
             - name: Deploying
               run: |
-                docker push sanan25/healt-assessment-image:latest
+                docker push sanan25/health-assessment-image:latest
 
              
