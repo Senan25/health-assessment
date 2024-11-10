@@ -5,7 +5,7 @@ on:
         branches: "main"
 
 jobs:
-    build:
+    build-deploy:
         runs-on: ubuntu-latest
         steps: 
             - name: Checkout Code
@@ -22,15 +22,6 @@ jobs:
               run: |
                 docker images -a
 
-
-    deploy:
-        runs-on: ubuntu-latest
-        needs: build
-
-        steps: 
-            - name: Checking image
-              run: |
-                docker images -a
             - name: Deploying
               run: |
                 docker push sanan25/health-assessment-image:latest
